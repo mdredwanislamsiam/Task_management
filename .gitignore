@@ -1,0 +1,4 @@
+task_env/
+.vscode/
+__pycache__/
+db.sqlite3
