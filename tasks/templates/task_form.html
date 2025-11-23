@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static "CSS/output.css" %}" />
+</head>
+<body>
+    <div class="w-1/2 mx-auto mt-8">
+        <div>
+            {% if message %}
+                <p>{{message}}</p>
+            {% endif %}
+        </div>
+        <form method= "POST">
+            <input type="text" class=" " />
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit" class="p-2 bg-cyan-500 text-yellow-800">submit</button>
+        </form>
+    </div>
+</body>
+</html>
