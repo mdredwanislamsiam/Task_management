@@ -123,7 +123,7 @@ def update_task(request, id):
             # assigned_to = form.cleaned_data.get('assigned_to')
             # task = Task.objects.create(title = title, description = description, due_date = due_date)
 
-            # # assing employee to taks
+            # # assing employee to takss
             # for emp_id in assigned_to:
             #     emp = Employee.objects.get(id = emp_id)
             #     task.assigned_to.add(emp)
