@@ -1,5 +1,5 @@
 from django import forms
-from tasks.models import Task
+from tasks.models import Task, TaskDetail
 # django form
 
 class TaskForm(forms.Form):
@@ -31,7 +31,6 @@ class StyleMixin:
                     'placeholder': f"Enter {field.label.lower()}" 
                 })
             elif isinstance(field.widget, forms.SelectDateWidget):
-                print("Inside Date")
                 field.widget.attrs.update({
                     'class': f"{self.default_classed} p-1"
                 })
@@ -78,6 +77,16 @@ class TaskModelForm(StyleMixin,forms.ModelForm):
         #         })
         # }
     ''' widget using mixins '''
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.apply_styled_widgets()
+        
+
+class TaskDetailModelForm(StyleMixin, forms.ModelForm):
+    class Meta: 
+        model = TaskDetail
+        fields = ['priority', 'notes']
+    
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.apply_styled_widgets()

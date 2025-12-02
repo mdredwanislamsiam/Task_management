@@ -8,51 +8,36 @@
         <div>TEAM</div>
         <div>CREATED AT</div>
     </div>
-    <div class="grid grid-cols-4 p-4 border-b border-gray-100 text-sm ">
-        <div class="flex items-center gap-2">
-            <div class="w-2 h-2 bg-green-500 rounded-full text-black-500"></div>
-            <div><p class="font-semibold">Test Low Task</p></div>
+    {% for task in tasks  %}
+        <div class="grid grid-cols-4 p-4 border-b items-center border-gray-100 text-sm ">
+            <div >
+                <div class = ''>
+                    <div class="flex items-center gap-2">
+                        <div class="w-2 h-2 bg-green-500 rounded-full text-black-500 mb-4"></div>
+                         <p class="font-semibold mb-4">{{task.title}}</p>
+                    </div>
+                    <div class= "m-5 flex">
+                        <a href ="{% url 'update-task' task.id %}" class = " px-3 py-1  m-4 rounded-sm bg-green-500 
+                        ">Edit</a>
+                        <form action="{% url 'delete-task' task.id %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class = " px-3 py-1  m-4 rounded-sm bg-red-500
+                            ">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="my-auto">
+                <span class="px-3 py-1 rounded-full bg-blue-50 text-blue-600">{{task.details.get_priority_display}}</span>
+            </div>
+            <div class="flex -space-x-2 ">
+                {% for emp in task.assigned_to.all  %}
+                         <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white text-sm border-2 border-white">{{emp.name|slice:':1'}}</div>
+                {% endfor %}
+            </div>
+            <div class="my-auto"><p class="text-gray-400">{{task.created_at | timesince}}</p></div>
         </div>
-        <div class="my-auto">
-            <span class="px-3 py-1 rounded-full bg-blue-50 text-blue-600">Low</span>
-        </div>
-        <div class="flex -space-x-2 ">
-            <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white text-sm border-2 border-white">CA</div>
-            <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white text-sm border-2 border-white">JS</div>
-            <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white text-sm border-2 border-white">B</div>
-        </div>
-        <div class="my-auto"><p class="text-gray-400">9 months ago</p></div>
-    </div>
-    <div class="grid grid-cols-4 p-4 border-b border-gray-100 text-sm ">
-        <div class="flex items-center gap-2">
-            <div class="w-2 h-2 bg-yellow-500 rounded-full text-black-500"></div>
-            <div><p class="font-semibold">Test task</p></div>
-        </div>
-        <div class="my-auto">
-            <span class="px-3 py-1 rounded-full bg-gray-100 text-gray-600">Normal</span>
-        </div>
-        <div class="flex -space-x-2 ">
-            <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white text-sm border-2 border-white">AJ</div>
-            <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white text-sm border-2 border-white">EV</div>
-            <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white text-sm border-2 border-white">B</div>
-        </div>
-        <div class="my-auto"><p class="text-gray-400">9 months ago</p></div>
-    </div>
-    <div class="grid grid-cols-4 p-4 border-b border-gray-100 text-sm ">
-        <div class="flex items-center gap-2">
-            <div class="w-2 h-2 bg-orange-500 rounded-full text-black-500"></div>
-            <div><p class="font-semibold">Test task</p></div>
-        </div>
-        <div class="my-auto">
-            <span class="px-3 py-1 rounded-full bg-orange-50 text-orange-600">High</span>
-        </div>
-        <div class="flex -space-x-2 ">
-            <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white text-sm border-2 border-white">CA</div>
-            <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white text-sm border-2 border-white">JS</div>
-            <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white text-sm border-2 border-white">AJ</div>
-            <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white text-sm border-2 border-white">B</div>
-        </div>
-        <div class="my-auto"><p class="text-gray-400">9 months ago</p></div>
-    </div>
+    {% endfor %}
+    
 </div>
 {% endblock tasks %}
