@@ -1,15 +1,8 @@
-{% load static %}
+{% extends "base.html" %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="{% static 'CSS/output.css' %}" />
-</head>
-<body>
-    <h1>Sign-UP</h1>
+{% block sign_up_content %}
+<div class = "w-1/2 mx-auto">
+    <h1 class="my-5 text-2xl font-semibold text-center">Sign-UP</h1>
     <div>
         {% if messages %}
             {% for message in messages %}
@@ -42,8 +35,8 @@
 
                 </p>
             {% endfor %}
-            <button type = "submit" >Sign Up</button>
+            <button type = "submit" class="bg-blue-600 py-1 px-2 mx-auto text-center w-full my-3 rounded focus:bg-green-600 mb-20 text-white" >Sign Up</button>
         </form>
     </div>
-</body>
-</html>
+</div>
+{% endblock sign_up_content %}

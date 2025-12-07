@@ -1,5 +1,5 @@
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User 
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.models import User, Permission, Group
 from django import forms
 import re
 from tasks.forms import StyleMixin
@@ -24,6 +24,14 @@ class CustomSignUpForm(StyleMixin, forms.ModelForm):
     class Meta: 
         model = User 
         fields = ['first_name', 'last_name', 'email', 'username', 'password1', 'confirm_password']
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for name, field in self.fields.items():
+            field.widget.attrs.update({
+                'class': 'border-2 border-blue-300 shadow-sm focus:border-red-500 mb-4 rounded-lg w-full p-3',
+                'placeholder': f"Enter {field.label}"
+            })
     
     def clean_password1(self):
         password1 = self.cleaned_data.get('password1')
@@ -65,3 +73,34 @@ class CustomSignUpForm(StyleMixin, forms.ModelForm):
         
         if password1 != confirm_password: 
             raise forms.ValidationError("password do not match")
+        
+        
+
+class CustomSignInForm(StyleMixin, AuthenticationForm): 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for name, field in self.fields.items():
+            field.widget.attrs.update({
+                'class': 'border-2 border-blue-300 shadow-sm focus:border-red-500 mb-4 rounded-lg w-full p-3',
+                'placeholder': f"Enter {field.label}"
+            })
+        
+        
+        
+class AssignRoleForm(StyleMixin, forms.Form): 
+    role = forms.ModelChoiceField(
+        queryset= Group.objects.all(),
+        empty_label= "select a role"
+    )
+    
+
+class CreateGroupForm(StyleMixin, forms.ModelForm): 
+    class Meta: 
+        model = Group 
+        fields = ['name', 'permissions']
+        widgets = {
+            'permissions': forms.CheckboxSelectMultiple(), 
+        }
+        lables ={
+            'permissions': 'Assign Permission'
+        }

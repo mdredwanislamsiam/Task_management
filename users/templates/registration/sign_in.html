@@ -1,15 +1,9 @@
-{% load static %}
+{% extends "base.html" %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    {% comment %} <link rel="stylesheet" href="{% static 'CSS/output.css' %}" /> {% endcomment %}
-</head>
-<body>
-    <h1>Log In</h1>
+{% block sign_in_content %}
+
+<section class="w-1/2 mx-auto">
+    <h1 class="my-5 text-2xl font-semibold text-center" >Log In</h1>
     <div>
         {% if messages %}
             {% for message in messages %}
@@ -20,12 +14,14 @@
     <div>
         <form action="" method="POST">
             {% csrf_token %}
-            <input type="text" placeholder= "Enter username" name='username'/>
-            <input type="password" placeholder= "Enter Password" name='password'/>
+            {% comment %} <input type="text" placeholder= "Enter username" name='username'/>
+            <input type="password" placeholder= "Enter Password" name='password'/> {% endcomment %}
 
-
-            <button type = "submit" >Log In</button>
+            {{form.as_p}}
+            <button type = "submit" class="bg-blue-600 py-1 px-2 mx-auto text-center w-full my-3 rounded focus:bg-green-600 mb-20 text-white" >Log In</button>
         </form>
     </div>
-</body>
-</html>
+</section>
+
+{% endblock sign_in_content %}
+
