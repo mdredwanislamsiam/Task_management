@@ -3,6 +3,7 @@ from django.db.models.signals import post_save, m2m_changed
 from django.dispatch import receiver
 from django.core.mail import send_mail
 from django.contrib.auth.models import User
+from django.conf import settings
 
 # Create your models here.
 
@@ -23,9 +24,9 @@ class Task(models.Model):
         ('IN_PROGRESS', 'In Progress'),
         ('COMPLETED', 'Completed') 
     ]
-    project = models.ForeignKey(Project, on_delete= models.CASCADE, default=1)
+    project = models.ForeignKey(Project, on_delete= models.CASCADE, default=1, related_name='tasks')
     # assigned_to = models.ManyToManyField(Employee, related_name='tasks')
-    assigned_to = models.ManyToManyField(User, related_name='tasks')
+    assigned_to = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='tasks')
     title = models.CharField(max_length=250)
     description = models.TextField()
     due_date = models.DateField()

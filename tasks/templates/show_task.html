@@ -8,13 +8,11 @@
 <body>
     <div>
         <ol>
-            {% for emp in emps %}
-                <li>{{emp.name}}</li>
-                <ul>
-                    {% for task in emp.tasks.all %}
-                        <li>{{task}}</li>
-                    {% endfor %}
-                </ul> 
+            {% for project in projects %}
+                <li>
+                    <p>{{project.name}}</p>
+                    <p>{{project.num_task}}</p>
+                </li>
             {% endfor %}
         </ol>
     </div>

@@ -17,7 +17,7 @@ class TaskForm(forms.Form):
 
 # mixin class
 class StyleMixin:
-    default_classed = "border-2 border-blue-300 shadow-sm focus:border-red-500 mb-4 rounded-lg"
+    default_classed = "border-2 border-blue-300 shadow-sm focus:border-red-500 w-full p-3 mb-4 rounded-lg"
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -26,12 +26,12 @@ class StyleMixin:
         for field_name, field in self.fields.items():
             if isinstance(field.widget, forms.TextInput):
                 field.widget.attrs.update({
-                    'class': f"{self.default_classed} w-full p-3", 
+                    'class': f"{self.default_classed}", 
                     'placeholder': f"Enter {field.label.lower()}" 
                 })
             elif isinstance(field.widget, forms.Textarea):
                 field.widget.attrs.update({
-                    'class': f"{self.default_classed} w-full p-3", 
+                    'class': f"{self.default_classed}", 
                     'placeholder': f"Enter {field.label.lower()}" 
                 })
             elif isinstance(field.widget, forms.SelectDateWidget):
